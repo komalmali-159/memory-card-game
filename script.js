@@ -1,6 +1,3 @@
-// =====================
-// DOM ELEMENTS
-// =====================
 const boardEl = document.getElementById('board');
 const newGameBtn = document.getElementById('newGame');
 const difficultySel = document.getElementById('difficulty');
@@ -17,9 +14,7 @@ const finalTime = document.getElementById('finalTime');
 const finalMoves = document.getElementById('finalMoves');
 const finalScore = document.getElementById('finalScore');
 
-// =====================
-// GAME VARIABLES
-// =====================
+
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
@@ -38,20 +33,15 @@ const EMOJIS = [
   '🍩','🍪'
 ];
 
-// =====================
-// SHUFFLE FUNCTION
-// =====================
-function shuffleArray(array){
-  for(let i = array.length - 1; i > 0; i--){
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
 }
 
-// =====================
-// TIMER
-// =====================
 function startTimer() {
   timerInterval = setInterval(() => {
     elapsedSeconds++;
@@ -64,21 +54,18 @@ function updateTimer() {
   secondsEl.textContent = String(elapsedSeconds % 60).padStart(2, "0");
 }
 
-// =====================
-// UPDATE STATUS
-// =====================
+
 function updateStatus() {
   movesEl.textContent = moves;
   matchedEl.textContent = matchedPairs;
   totalPairsEl.textContent = totalPairs;
 }
 
-// =====================
-// FLIP CARD
-// =====================
 function flipCard(card) {
   if (lockBoard) return;
   if (card === firstCard) return;
+  if (card.classList.contains("flipped")) return;
+  if (card.classList.contains("matched")) return;
 
   card.classList.add("flipped");
 
@@ -92,11 +79,8 @@ function flipCard(card) {
   }
 }
 
-// =====================
-// MATCH CHECK
-// =====================
 function checkForMatch() {
-  let match = firstCard.dataset.face === secondCard.dataset.face;
+  const match = firstCard.dataset.face === secondCard.dataset.face;
 
   if (match) {
     firstCard.classList.add("matched");
@@ -117,18 +101,13 @@ function checkForMatch() {
   }
 }
 
-// =====================
-// RESET TURN
-// =====================
+
 function resetTurn() {
   firstCard = null;
   secondCard = null;
   lockBoard = false;
 }
 
-// =====================
-// END GAME
-// =====================
 function endGame() {
   clearInterval(timerInterval);
 
@@ -147,11 +126,9 @@ function calculateScore() {
   return timeFactor * moveFactor * 10;
 }
 
-// =====================
-// INITIALIZE GAME
-// =====================
 function init() {
   boardEl.innerHTML = "";
+  modal.classList.add("hidden");
 
   firstCard = null;
   secondCard = null;
@@ -191,14 +168,8 @@ function init() {
   });
 }
 
-// =====================
-// EVENT LISTENERS
-// =====================
-newGameBtn.addEventListener("click", () => { modal.classList.add("hidden"); init(); });
-playAgainBtn.addEventListener("click", () => { modal.classList.add("hidden"); init(); });
+newGameBtn.addEventListener("click", init);
+playAgainBtn.addEventListener("click", init);
 difficultySel.addEventListener("change", init);
 
-// =====================
-// START FIRST GAME
-// =====================
 init();
