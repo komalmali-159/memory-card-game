@@ -3,14 +3,14 @@
 ## Overview
 This is a responsive Memory Card Game built using HTML, CSS, and JavaScript.
 The game uses emoji faces for cards, so no external images or assets are required.
-Players flip cards to find matching pairs. Different difficulty levels change the grid size.
+Players flip cards to find matching pairs, and different difficulty levels change the grid size.
 
-This project was created as part of my internship to practice JavaScript logic and DOM manipulation.
+This project was developed as part of my internship to practice JavaScript logic and DOM manipulation.
 
 ---
 
 ## Features
-- Grid-based matching game (4 x 4, 6 x 6, 8 x 8)
+- Grid-based matching game (4 × 4, 6 × 6, 8 × 8)
 - Moves counter
 - Game timer
 - Difficulty selection
@@ -30,8 +30,8 @@ This project was created as part of my internship to practice JavaScript logic a
 
 ## How the Game Works
 - Cards are generated dynamically using JavaScript.
-- Player flips two cards at a time.
-- If the cards match, they stay open.
+- The player flips two cards at a time.
+- If the cards match, they remain visible.
 - If they do not match, they flip back.
 - The game ends when all pairs are matched.
 
@@ -39,13 +39,13 @@ This project was created as part of my internship to practice JavaScript logic a
 
 ## What I Learned
 - DOM manipulation using JavaScript
-- Handling game logic and conditions
-- Using timers and counters
-- Creating responsive layouts
+- Implementing game logic and conditions
+- Working with timers and counters
+- Building responsive layouts
 
 ---
 
 ## Author
-Komal Mali  
+**Komal Mali**  
 BCA Student  
 Intern
