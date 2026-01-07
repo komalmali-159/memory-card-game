@@ -14,14 +14,13 @@ const finalTime = document.getElementById('finalTime');
 const finalMoves = document.getElementById('finalMoves');
 const finalScore = document.getElementById('finalScore');
 
-
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
+let gameStarted = false;
 
 let matchedPairs = 0;
 let totalPairs = 0;
-
 let moves = 0;
 let elapsedSeconds = 0;
 let timerInterval = null;
@@ -32,7 +31,6 @@ const EMOJIS = [
   '🐬','🐙','🦖','🦋','🌵','🍎','🍌','🍇','🍓','🍕',
   '🍩','🍪'
 ];
-
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -54,7 +52,6 @@ function updateTimer() {
   secondsEl.textContent = String(elapsedSeconds % 60).padStart(2, "0");
 }
 
-
 function updateStatus() {
   movesEl.textContent = moves;
   matchedEl.textContent = matchedPairs;
@@ -66,6 +63,12 @@ function flipCard(card) {
   if (card === firstCard) return;
   if (card.classList.contains("flipped")) return;
   if (card.classList.contains("matched")) return;
+
+  // ✅ Start timer on first move
+  if (!gameStarted) {
+    startTimer();
+    gameStarted = true;
+  }
 
   card.classList.add("flipped");
 
@@ -101,7 +104,6 @@ function checkForMatch() {
   }
 }
 
-
 function resetTurn() {
   firstCard = null;
   secondCard = null;
@@ -133,15 +135,16 @@ function init() {
   firstCard = null;
   secondCard = null;
   lockBoard = false;
+  gameStarted = false;
   matchedPairs = 0;
   moves = 0;
   elapsedSeconds = 0;
 
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = null;
+
   updateTimer();
   updateStatus();
-
-  if (timerInterval) clearInterval(timerInterval);
-  startTimer();
 
   const size = parseInt(difficultySel.value);
   totalPairs = (size * size) / 2;
@@ -158,8 +161,8 @@ function init() {
 
     card.innerHTML = `
       <div class="card-inner">
-        <div class="card-face front">❓</div>
-        <div class="card-face back">${face}</div>
+        <div class="card-face front">${face}</div>
+        <div class="card-face back">❓</div>
       </div>
     `;
 
